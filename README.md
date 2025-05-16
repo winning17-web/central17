@@ -1,8 +1,19 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+Install the node mocules with: 
 
-First, run the development server using any of these commands:
+```bash
+npm install
+# or
+yarn i
+# or
+pnpm i
+# or
+bun i
+```
+
+Then, run the development server using any of these commands:
 
 ```bash
 npm run dev
