@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --electric-blue: #00FFFF;
+  --neon-green: #39FF14;
+  --gold: #FFD700;
+  --dark-bg: #121212;
+  --darker-bg: #0A0A0A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #AAAAAA;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#00FFFF] text-black font-bold py-2 px-4 rounded hover:bg-[#00CCCC] transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-[#39FF14] text-black font-bold py-2 px-4 rounded hover:bg-[#32CC12] transition-colors;
+  }
+  
+  .btn-gold {
+    @apply bg-[#FFD700] text-black font-bold py-2 px-4 rounded hover:bg-[#CCAC00] transition-colors;
+  }
+  
+  .card {
+    @apply bg-[#1E1E1E] rounded-lg p-4 border border-[#333333];
+  }
+  
+  .header {
+    @apply text-2xl font-bold text-[#FFFFFF] mb-4;
+  }
+  
+  .subheader {
+    @apply text-xl font-semibold text-[#DDDDDD] mb-3;
+  }
+}

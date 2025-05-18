@@ -1,0 +1,20 @@
+{
+  "name": "ai-service",
+  "version": "1.0.0",
+  "description": "The Referee AI service for Gaming Central platform",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": [
+    "ai",
+    "gaming",
+    "referee",
+    "tournament"
+  ],
+  "author": "Gaming Central",
+  "license": "ISC"
+}
