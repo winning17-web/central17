@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Tournament Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div id="loading" class="screen">
+            <div class="loader"></div>
+            <p>Loading...</p>
+        </div>
+
+        <div id="main-menu" class="screen hidden">
+            <div class="header">
+                <h1>Web3 Tournament</h1>
+                <div class="user-info">
+                    <span id="username">User</span>
+                    <div class="credits">
+                        <span id="credit-amount">0</span>
+                        <span class="credit-icon">⭐</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-buttons">
+                <button class="menu-button" id="tournaments-btn">
+                    <span class="icon">🏆</span>
+                    <span>Tournaments</span>
+                </button>
+                <button class="menu-button" id="watch-ads-btn">
+                    <span class="icon">📺</span>
+                    <span>Watch Ads</span>
+                </button>
+                <button class="menu-button" id="my-matches-btn">
+                    <span class="icon">🎮</span>
+                    <span>My Matches</span>
+                </button>
+                <button class="menu-button" id="profile-btn">
+                    <span class="icon">👤</span>
+                    <span>Profile</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="tournaments-screen" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-button">←</button>
+                <h2>Tournaments</h2>
+                <button class="refresh-button">🔄</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="active">Active</button>
+                <button class="tab" data-tab="upcoming">Upcoming</button>
+                <button class="tab" data-tab="completed">Completed</button>
+            </div>
+
+            <div class="tournament-list" id="tournament-container">
+                <!-- Tournaments will be added here dynamically -->
+            </div>
+
+            <button class="create-tournament-btn">Create Tournament</button>
+        </div>
+
+        <div id="tournament-details" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-button">←</button>
+                <h2 id="tournament-name">Tournament Name</h2>
+            </div>
+
+            <div class="tournament-info">
+                <div class="info-row">
+                    <span class="label">Status:</span>
+                    <span id="tournament-status" class="value">Active</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Entry Fee:</span>
+                    <span id="tournament-fee" class="value">10 ⭐</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Participants:</span>
+                    <span id="tournament-participants" class="value">8/16</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Start Time:</span>
+                    <span id="tournament-start" class="value">May 20, 2025</span>
+                </div>
+            </div>
+
+            <div class="tournament-description" id="tournament-description">
+                Tournament description goes here...
+            </div>
+
+            <div class="match-list" id="tournament-matches">
+                <!-- Matches will be added here dynamically -->
+            </div>
+
+            <button id="join-tournament-btn" class="primary-button">Join Tournament</button>
+        </div>
+
+        <div id="ad-screen" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-button">←</button>
+                <h2>Watch Ads</h2>
+            </div>
+
+            <div class="ad-options">
+                <div class="ad-option" data-type="short">
+                    <div class="ad-option-header">
+                        <h3>Short Ad</h3>
+                        <span class="reward">+5 ⭐</span>
+                    </div>
+                    <p>Watch a 15-second ad to earn 5 credits</p>
+                    <button class="watch-button">Watch Now</button>
+                </div>
+
+                <div class="ad-option" data-type="medium">
+                    <div class="ad-option-header">
+                        <h3>Medium Ad</h3>
+                        <span class="reward">+10 ⭐</span>
+                    </div>
+                    <p>Watch a 30-second ad to earn 10 credits</p>
+                    <button class="watch-button">Watch Now</button>
+                </div>
+
+                <div class="ad-option" data-type="long">
+                    <div class="ad-option-header">
+                        <h3>Long Ad</h3>
+                        <span class="reward">+20 ⭐</span>
+                    </div>
+                    <p>Watch a 60-second ad to earn 20 credits</p>
+                    <button class="watch-button">Watch Now</button>
+                </div>
+            </div>
+
+            <div class="ad-history">
+                <h3>Recent Earnings</h3>
+                <div id="ad-history-list">
+                    <!-- Ad history will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div id="ad-viewer" class="screen hidden">
+            <div class="ad-container" id="ad-container">
+                <!-- Ad will be displayed here -->
+            </div>
+
+            <div class="ad-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="ad-progress-fill"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="ad-time-remaining">15</span> seconds remaining
+                </div>
+            </div>
+
+            <div class="ad-completion hidden" id="ad-completion">
+                <h3>Ad Completed!</h3>
+                <p>You earned <span id="earned-credits">5</span> credits</p>
+                <button class="primary-button" id="ad-done-btn">Done</button>
+            </div>
+        </div>
+
+        <div id="matches-screen" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-button">←</button>
+                <h2>My Matches</h2>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="upcoming">Upcoming</button>
+                <button class="tab" data-tab="completed">Completed</button>
+            </div>
+
+            <div class="match-list" id="match-container">
+                <!-- Matches will be added here dynamically -->
+            </div>
+        </div>
+
+        <div id="match-details" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-button">←</button>
+                <h2>Match Details</h2>
+            </div>
+
+            <div class="match-info">
+                <div class="match-players">
+                    <div class="player player1">
+                        <div class="player-avatar">👤</div>
+                        <div class="player-name" id="player1-name">Player 1</div>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="player player2">
+                        <div class="player-avatar">👤</div>
+                        <div class="player-name" id="player2-name">Player 2</div>
+                    </div>
+                </div>
+
+                <div class="match-status" id="match-status">
+                    Scheduled
+                </div>
+
+                <div class="match-result hidden" id="match-result">
+                    <div class="result-label">Result:</div>
+                    <div class="result-value" id="result-value">Win</div>
+                </div>
+            </div>
+
+            <div class="submit-result hidden" id="submit-result-section">
+                <h3>Submit Result</h3>
+                <div class="result-options">
+                    <button class="result-option" data-result="win">I Won</button>
+                    <button class="result-option" data-result="loss">I Lost</button>
+                    <button class="result-option" data-result="draw">Draw</button>
+                </div>
+                <div class="evidence-upload">
+                    <p>Upload screenshot as evidence:</p>
+                    <button class="upload-button" id="upload-evidence">Upload Screenshot</button>
+                </div>
+                <button class="primary-button" id="submit-result-btn">Submit Result</button>
+            </div>
+        </div>
+
+        <div id="profile-screen" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-button">←</button>
+                <h2>Profile</h2>
+            </div>
+
+            <div class="profile-info">
+                <div class="profile-avatar">👤</div>
+                <h3 id="profile-name">Username</h3>
+                <div class="profile-credits">
+                    <span id="profile-credits">0</span>
+                    <span class="credit-icon">⭐</span>
+                </div>
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat">
+                    <div class="stat-value" id="tournaments-joined">0</div>
+                    <div class="stat-label">Tournaments</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="matches-won">0</div>
+                    <div class="stat-label">Wins</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="matches-lost">0</div>
+                    <div class="stat-label">Losses</div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Transaction History</h3>
+                <div class="transaction-list" id="transaction-list">
+                    <!-- Transactions will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
